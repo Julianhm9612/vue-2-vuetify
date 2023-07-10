@@ -1,86 +1,78 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div id="app">
-    <header>
-      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <v-app>
+    <v-app-bar color="primary" dense app>
+      <!-- -->
+    </v-app-bar>
 
-      <div class="wrapper">
-        <HelloWorld msg="You did it!" />
+    <v-navigation-drawer app>
+      <template v-slot:prepend>
+        <v-list-item two-line>
+          <v-list-item-avatar>
+            <img src="https://media-exp1.licdn.com/dms/image/C5603AQHAvAZdEkOBxQ/profile-displayphoto-shrink_800_800/0/1612061437481?e=1674691200&v=beta&t=2xiSeav2USlTIuUNkXKDeKE8OnD9_p4i2mrhVPnqqk0">
+          </v-list-item-avatar>
 
-        <nav>
-          <router-link to="/">Home</router-link>
-          <router-link to="/about">About</router-link>
-        </nav>
-      </div>
-    </header>
+          <v-list-item-content>
+            <v-list-item-title>Julian Henao</v-list-item-title>
+            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
 
-    <router-view />
-  </div>
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item v-for="item in items" :key="item.title">
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <template v-slot:append>
+        <div class="pa-4">
+          <v-btn color="primary" block>
+            Logout
+          </v-btn>
+        </div>
+      </template>
+    </v-navigation-drawer>
+
+    <!-- Sizes your content based upon application components -->
+    <v-main app>
+
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+
+        <!-- If using vue-router -->
+        <router-view />
+
+      </v-container>
+    </v-main>
+
+    <v-footer app>
+      <span>
+        Version 1.0.0
+      </span>
+    </v-footer>
+  </v-app>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script lang="ts">
+import Vue from 'vue';
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+export default Vue.extend({
+  name: 'App',
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+  data: () => ({
+    items: [
+      { title: 'Home', icon: 'mdi-home-city' },
+      { title: 'My Account', icon: 'mdi-account' },
+      { title: 'Users', icon: 'mdi-account-group-outline' },
+    ],
+  }),
+});
+</script>
